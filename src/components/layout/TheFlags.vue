@@ -4,8 +4,6 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { countrySelected } from "../../store.js";
 
-const emit = defineEmits();
-
 const countries = ref(null);
 const searchCountry = ref("");
 const router = useRouter();
@@ -19,7 +17,7 @@ const loadCountries = async () => {
 const selectCountry = function (country) {
   console.log(countrySelected.value);
   countrySelected.value = country;
-  router.push("/country-details");
+  router.push(`/country-details/${country.name.common}`);
   console.log(countrySelected.value);
 };
 
