@@ -1,6 +1,6 @@
 <script setup>
 import axios from "axios";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 const countries = ref(null);
 const searchCountry = ref("");
@@ -11,8 +11,7 @@ const loadCountries = async () => {
   console.log(countries.value);
   console.log(response.data);
 };
-
-loadCountries();
+onMounted(loadCountries());
 </script>
 
 <template>
