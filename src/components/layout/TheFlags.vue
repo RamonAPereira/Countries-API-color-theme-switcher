@@ -4,6 +4,7 @@ import { ref, onMounted } from "vue";
 
 const countries = ref(null);
 const searchCountry = ref("");
+const countrySelected = ref(null);
 
 const loadCountries = async () => {
   const response = await axios.get("https://restcountries.com/v3.1/all");
@@ -11,6 +12,10 @@ const loadCountries = async () => {
   console.log(countries.value);
   console.log(response.data);
 };
+const selectCountry = function (country) {
+  countrySelected.value = country;
+};
+
 onMounted(loadCountries());
 </script>
 
@@ -34,6 +39,7 @@ onMounted(loadCountries());
         class="flags__card"
         v-for="country in countries"
         :key="country.name.common"
+        @click="selectCountry(country)"
       >
         <div class="text-9xl">{{ country.flag }}</div>
 
@@ -97,6 +103,6 @@ onMounted(loadCountries());
 }
 
 .flags__card {
-  @apply bg-white shadow-2xl flex items-center flex-col  text-black py-8 gap-6 px-2 dark:bg-slate-800 dark:text-white rounded-lg;
+  @apply bg-white shadow-2xl flex items-center flex-col  text-black py-8 gap-6 px-2 cursor-pointer dark:bg-slate-800 dark:text-white rounded-lg;
 }
 </style>
