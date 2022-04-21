@@ -41,7 +41,7 @@ onMounted(loadCountries());
         :key="country.name.common"
         @click="selectCountry(country)"
       >
-        <div class="text-9xl">{{ country.flag }}</div>
+        <img :src="country.flags.png" alt="" />
 
         <ul>
           <li>
