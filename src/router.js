@@ -8,7 +8,8 @@ const router = createRouter({
   routes: [
     { path: "/", redirect: "/home" },
     { path: "/home", component: HomePage },
-    { path: "/country-details", component: CountryDetails },
+    { path: "/country-details/:flag", component: CountryDetails },
+    { path: "/catchAll(.*)", component: HomePage },
   ],
 });
 
