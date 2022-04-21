@@ -3,6 +3,8 @@ import axios from "axios";
 import { ref } from "vue";
 
 const countries = ref(null);
+const searchCountry = ref("");
+
 const loadCountries = async () => {
   const response = await axios.get("https://restcountries.com/v3.1/all");
   countries.value = response.data;
@@ -21,6 +23,7 @@ loadCountries();
           type="text"
           class="flags__search"
           placeholder="Search for a country"
+          v-model="searchCountry"
         />
       </div>
       <div class="form-control">
