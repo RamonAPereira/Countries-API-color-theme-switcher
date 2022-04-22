@@ -4,12 +4,23 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { countrySelected } from "../../store.js";
 
+const regions = ref([
+  { name: "Africa", link: "/region/africa" },
+  { name: "America", link: "/region/america" },
+  { name: "Asia", link: "/region/asia" },
+  { name: "Europe", link: "/region/europe" },
+  { name: "Oceania", link: "/region/oceania" },
+]);
+const region = ref("all"); // link to the region
 const countries = ref(null); //API object
 const searchCountry = ref(""); //Country selected by the user
 const router = useRouter(); //push to a new url
+const showFilterMenu = ref(false); //show the filter menu '-'
 
 const loadCountries = async () => {
-  const response = await axios.get("https://restcountries.com/v3.1/all");
+  const response = await axios.get(
+    `https://restcountries.com/v3.1/${region.value}`
+  );
   countries.value = response.data;
 }; // Get API object
 
@@ -18,6 +29,17 @@ const selectCountry = function (country) {
   router.push(`/country-details/${country.name.common}`);
   console.log(countrySelected.value);
 }; // Select a country and change url to details of that country
+
+const openRegionFilter = function () {
+  showFilterMenu.value = !showFilterMenu.value;
+  console.log(showFilterMenu.value); //Open the filter menu
+};
+
+const changeRegion = function (link) {
+  region.value = link;
+  loadCountries();
+  showFilterMenu.value = !showFilterMenu.value;
+}; // do a new request on the api but with filters on
 
 onMounted(loadCountries()); // Call the API on mounted
 </script>
@@ -33,8 +55,21 @@ onMounted(loadCountries()); // Call the API on mounted
           v-model="searchCountry"
         />
       </div>
-      <div class="form-control">
-        <button class="flags__filter">Filter by Region</button>
+      <div class="form-control relative">
+        <button @click="openRegionFilter" class="flags__filter">
+          Filter by Region
+        </button>
+        <ul
+          class="left-0 flex flex-col gap-1 text-black bg-white dark:bg-slate-800 dark:text-white px-9 py-2 absolute"
+          :class="{ hidden: !showFilterMenu }"
+        >
+          <li>teste</li>
+          <li v-for="region in regions" :key="region.link">
+            <button @click="changeRegion(region.link)">
+              {{ region.name }}
+            </button>
+          </li>
+        </ul>
       </div>
     </form>
     <ul v-if="countries !== null" class="flags__cards">
