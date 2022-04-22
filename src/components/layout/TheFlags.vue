@@ -11,7 +11,7 @@ const regions = ref([
   { name: "Europe", link: "/region/europe" },
   { name: "Oceania", link: "/region/oceania" },
 ]); // arr with all regions to be filtered
-const region = ref("all"); // link to the region
+const filterLink = ref("all"); // link to the region
 const countries = ref(null); //API object
 const searchCountry = ref(""); //Country selected by the user
 const router = useRouter(); //push to a new url
@@ -19,7 +19,7 @@ const showFilterMenu = ref(false); //show the filter menu '-'
 
 const loadCountries = async () => {
   const response = await axios.get(
-    `https://restcountries.com/v3.1/${region.value}`
+    `https://restcountries.com/v3.1/${filterLink.value}`
   );
   countries.value = response.data;
 }; // Get API object
@@ -36,7 +36,7 @@ const openRegionFilter = function () {
 };
 
 const changeRegion = function (link) {
-  region.value = link;
+  filterLink.value = link;
   loadCountries();
   showFilterMenu.value = !showFilterMenu.value;
 }; // do a new request on the api but with filters on
