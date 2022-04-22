@@ -84,7 +84,7 @@ onMounted(loadCountries());
 
 <style scoped>
 .flags {
-  @apply bg-gray-50 dark:bg-slate-900 h-full  py-10;
+  @apply min-h-screen bg-gray-50 dark:bg-slate-900 h-full  py-10;
 }
 
 .flags__form {
