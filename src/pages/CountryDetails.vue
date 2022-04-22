@@ -31,7 +31,11 @@ const goBack = function () {
           </li>
           <li>
             Native Name:
-            <span>{{ countrySelected.name.nativeName }}</span>
+            <span>{{
+              countrySelected.name.nativeName[
+                Object.keys(countrySelected.name.nativeName)[0]
+              ].official
+            }}</span>
           </li>
           <li>
             Population: <span>{{ countrySelected.population }}</span>
@@ -52,10 +56,20 @@ const goBack = function () {
             Top Level Domain: <span>{{ countrySelected.tld[0] }}</span>
           </li>
           <li>
-            Currencies: <span>{{ countrySelected.currencies }}</span>
+            Currencies:
+            <span>{{
+              countrySelected.currencies[
+                Object.keys(countrySelected.currencies)[0]
+              ].name
+            }}</span>
           </li>
           <li>
-            Languages: <span>{{ countrySelected.languages }}</span>
+            Languages:
+            <span>{{
+              countrySelected.languages[
+                Object.keys(countrySelected.languages)[0]
+              ]
+            }}</span>
           </li>
         </ul>
       </div>

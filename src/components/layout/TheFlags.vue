@@ -11,7 +11,9 @@ const regions = ref([
   { name: "Europe", link: "/region/europe" },
   { name: "Oceania", link: "/region/oceania" },
 ]); // arr with all regions to be filtered
-const filterLink = ref("all"); // link to the region
+
+const filterLink = ref("all"); // link to what to fetch
+
 const countries = ref(null); //API object
 const searchCountry = ref(""); //Country selected by the user
 const router = useRouter(); //push to a new url
@@ -27,7 +29,7 @@ const loadCountries = async () => {
 const selectCountry = function (country) {
   countrySelected.value = country;
   router.push(`/country-details/${country.name.common}`);
-  console.log(countrySelected.value);
+  console.log(country.capital[0]);
 }; // Select a country and change url to details of that country
 
 const openRegionFilter = function () {
@@ -41,18 +43,25 @@ const changeRegion = function (link) {
   showFilterMenu.value = !showFilterMenu.value;
 }; // do a new request on the api but with filters on
 
+const teste = function () {
+  console.log(`/name/${searchCountry.value}`);
+  filterLink.value = `/name/${searchCountry.value}`;
+  loadCountries();
+};
+
 onMounted(loadCountries()); // Call the API on mounted
 </script>
 
 <template>
   <section class="flags">
-    <form class="flags__form" @click.prevent="">
+    <div class="flags__form">
       <div class="form-control">
         <input
           type="text"
           class="flags__search"
           placeholder="Search for a country"
           v-model="searchCountry"
+          @keyup="teste"
         />
       </div>
       <div class="form-control relative">
@@ -70,7 +79,7 @@ onMounted(loadCountries()); // Call the API on mounted
           </li>
         </ul>
       </div>
-    </form>
+    </div>
     <ul v-if="countries !== null" class="flags__cards">
       <li
         class="flags__card"
