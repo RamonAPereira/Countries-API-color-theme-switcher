@@ -9,7 +9,7 @@
 
 <style scoped>
 .header {
-  @apply shadow-lg flex justify-between px-5 py-6 bg-white  dark:bg-slate-800;
+  @apply shadow-lg flex justify-between px-5 py-6 bg-white  dark:bg-slate-800 border-b border-black;
 }
 
 .header__title {

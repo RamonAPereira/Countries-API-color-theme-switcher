@@ -4,24 +4,22 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { countrySelected } from "../../store.js";
 
-const countries = ref(null);
-const searchCountry = ref("");
-const router = useRouter();
+const countries = ref(null); //API object
+const searchCountry = ref(""); //Country selected by the user
+const router = useRouter(); //push to a new url
 
 const loadCountries = async () => {
   const response = await axios.get("https://restcountries.com/v3.1/all");
   countries.value = response.data;
-  console.log(countries.value);
-  console.log(response.data);
-};
+}; // Get API object
+
 const selectCountry = function (country) {
-  console.log(countrySelected.value);
   countrySelected.value = country;
   router.push(`/country-details/${country.name.common}`);
   console.log(countrySelected.value);
-};
+}; // Select a country and change url to details of that country
 
-onMounted(loadCountries());
+onMounted(loadCountries()); // Call the API on mounted
 </script>
 
 <template>
@@ -46,7 +44,7 @@ onMounted(loadCountries());
         :key="country.name.common"
         @click="selectCountry(country)"
       >
-        <img :src="country.flags.png" alt="" />
+        <img class="border border-black" :src="country.flags.png" alt="" />
 
         <ul>
           <li>
@@ -96,11 +94,11 @@ onMounted(loadCountries());
 }
 
 .flags__search {
-  @apply py-2 px-3 shadow-xl bg-white dark:bg-slate-800 dark:text-white w-full  max-w-md;
+  @apply py-2 px-3 shadow-xl bg-white dark:bg-slate-800 dark:text-white w-full  max-w-md border border-black;
 }
 
 .flags__filter {
-  @apply relative py-2 px-3 shadow-xl text-black  bg-white dark:bg-slate-800 dark:text-white;
+  @apply relative py-2 px-3 shadow-xl text-black  bg-white dark:bg-slate-800 dark:text-white border border-black;
 }
 
 .flags__cards {
@@ -108,6 +106,6 @@ onMounted(loadCountries());
 }
 
 .flags__card {
-  @apply bg-white shadow-2xl flex items-center flex-col  text-black py-8 gap-6 px-2 cursor-pointer dark:bg-slate-800 dark:text-white rounded-lg;
+  @apply bg-white shadow-2xl flex items-center flex-col  text-black py-8 gap-6 px-2 cursor-pointer dark:bg-slate-800 border border-black dark:text-white rounded-lg;
 }
 </style>
