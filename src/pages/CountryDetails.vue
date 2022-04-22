@@ -1,12 +1,18 @@
 <script setup>
 import { countrySelected } from "../store.js";
 import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const goBack = function () {
+  router.push("/home");
+};
 </script>
 
 <template>
   <section class="details">
     <div class="flex flex-col gap-8 sm:flex-1">
-      <button class="button">Back</button>
+      <button @click="goBack" class="button">Back</button>
       <img
         class="border border-black"
         :src="countrySelected.flags.png"
