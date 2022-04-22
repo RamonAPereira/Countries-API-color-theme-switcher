@@ -10,7 +10,7 @@ const regions = ref([
   { name: "Asia", link: "/region/asia" },
   { name: "Europe", link: "/region/europe" },
   { name: "Oceania", link: "/region/oceania" },
-]);
+]); // arr with all regions to be filtered
 const region = ref("all"); // link to the region
 const countries = ref(null); //API object
 const searchCountry = ref(""); //Country selected by the user
@@ -63,7 +63,6 @@ onMounted(loadCountries()); // Call the API on mounted
           class="left-0 flex flex-col gap-1 text-black bg-white dark:bg-slate-800 dark:text-white px-9 py-2 absolute"
           :class="{ hidden: !showFilterMenu }"
         >
-          <li>teste</li>
           <li v-for="region in regions" :key="region.link">
             <button @click="changeRegion(region.link)">
               {{ region.name }}
