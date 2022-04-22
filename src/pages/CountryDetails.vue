@@ -12,7 +12,7 @@ const goBack = function () {
 <template>
   <section class="details">
     <div class="flex flex-col gap-8 sm:flex-1">
-      <button @click="goBack" class="button">Back</button>
+      <button @click="goBack" class="button border border-black">Back</button>
       <img
         class="border border-black"
         :src="countrySelected.flags.png"
