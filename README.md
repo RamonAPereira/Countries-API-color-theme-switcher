@@ -27,7 +27,14 @@ Users should be able to:
 ### Screenshot
 
 ![](./src/assets/desktop-dark.png)
+
+##
+
 ![](./src/assets/desktop-white.png)
+
+##
+
+![](./src/assets/desktop-details.png)
 
 ### Links
 
