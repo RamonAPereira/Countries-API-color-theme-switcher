@@ -43,6 +43,10 @@ const changeRegion = function (link) {
   showFilterMenu.value = !showFilterMenu.value;
 }; // do a new request on the api but with filters on
 
+const closeRegionFilter = function () {
+  showFilterMenu.value = false;
+};
+
 const filterByName = function () {
   if (searchCountry.value === "") {
     filterLink.value = `/all`;
@@ -68,7 +72,11 @@ onUpdated(loadCountries()); // Call the API on mounted
         />
       </div>
       <div class="form-control relative">
-        <button @click="openRegionFilter" class="flags__filter">
+        <button
+          @click="openRegionFilter"
+          @focusout="closeRegionFilter"
+          class="flags__filter"
+        >
           Filter by Region
         </button>
         <ul
