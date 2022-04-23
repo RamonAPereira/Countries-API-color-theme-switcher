@@ -77,7 +77,7 @@ const goBack = function () {
         <h2 class="font-semibold text-lg">Border Countries</h2>
         <ul class="flex flex-wrap gap-8">
           <li v-for="border in countrySelected.borders" :key="border">
-            {{ border }}
+            <button>{{ border }}</button>
           </li>
         </ul>
       </div>
