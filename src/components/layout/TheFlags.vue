@@ -1,8 +1,10 @@
 <script setup>
-import axios from "axios";
 import { ref, onUpdated } from "vue";
 import { useRouter } from "vue-router";
 import { countrySelected } from "../../store.js";
+import { loadCountries } from "../../store.js";
+import { filterLink } from "../../store.js";
+import { countries } from "../../store.js";
 
 const regions = ref([
   { name: "Africa", link: "/region/africa" },
@@ -12,24 +14,13 @@ const regions = ref([
   { name: "Oceania", link: "/region/oceania" },
 ]); // arr with all regions to be filtered
 
-const filterLink = ref("all"); // link to what to fetch
-
-const countries = ref(null); //API object
 const searchCountry = ref(""); //Country selected by the user
 const router = useRouter(); //push to a new url
 const showFilterMenu = ref(false); //show the filter menu '-'
 
-const loadCountries = async () => {
-  const response = await axios.get(
-    `https://restcountries.com/v3.1/${filterLink.value}`
-  );
-  countries.value = response.data;
-}; // Get API object
-
 const selectCountry = function (country) {
   countrySelected.value = country;
   router.push(`/country-details/${country.name.common}`);
-  console.log(country.capital[0]);
 }; // Select a country and change url to details of that country
 
 const openRegionFilter = function () {
