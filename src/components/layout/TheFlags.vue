@@ -1,6 +1,6 @@
 <script setup>
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { ref, onUpdated } from "vue";
 import { useRouter } from "vue-router";
 import { countrySelected } from "../../store.js";
 
@@ -43,13 +43,16 @@ const changeRegion = function (link) {
   showFilterMenu.value = !showFilterMenu.value;
 }; // do a new request on the api but with filters on
 
-const teste = function () {
-  console.log(`/name/${searchCountry.value}`);
-  filterLink.value = `/name/${searchCountry.value}`;
-  loadCountries();
+const filterByName = function () {
+  if (searchCountry.value === "") {
+    filterLink.value = `/all`;
+  } else {
+    filterLink.value = `/name/${searchCountry.value}`;
+    loadCountries();
+  }
 };
 
-onMounted(loadCountries()); // Call the API on mounted
+onUpdated(loadCountries()); // Call the API on mounted
 </script>
 
 <template>
@@ -61,7 +64,7 @@ onMounted(loadCountries()); // Call the API on mounted
           class="flags__search"
           placeholder="Search for a country"
           v-model="searchCountry"
-          @keyup="teste"
+          @keyup="filterByName"
         />
       </div>
       <div class="form-control relative">
@@ -87,7 +90,7 @@ onMounted(loadCountries()); // Call the API on mounted
         :key="country.name.common"
         @click="selectCountry(country)"
       >
-        <img class="border border-black" :src="country.flags.png" alt="" />
+        <img class="border border-black h-20" :src="country.flags.png" alt="" />
 
         <ul>
           <li>
@@ -97,7 +100,14 @@ onMounted(loadCountries()); // Call the API on mounted
             <span class="font-bold">Population: </span>{{ country.population }}
           </li>
           <li><span class="font-bold">Region: </span>{{ country.region }}</li>
-          <li><span class="font-bold">Capital: </span>{{ country.capital }}</li>
+          <li>
+            <span
+              v-for="(item, index) in country.capital"
+              :key="index"
+              class="font-bold"
+              >Capital: {{ item }}
+            </span>
+          </li>
         </ul>
       </li>
     </ul>
